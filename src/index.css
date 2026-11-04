@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --color-ice-white: #F5F7F8;
+  --color-silver-light: #BFC7CD;
+  --color-charcoal: #111820;
+  --color-deep-black: #050608;
+  --color-frost-blue: #BDEEFF;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+    background-color: #050608;
+    color: #F5F7F8;
+  }
+}
+
+.font-display {
+  font-family: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Metallic Silver & Ice Gradients */
+.text-gradient-silver {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-ice {
+  background: linear-gradient(180deg, #FFFFFF 0%, #BDEEFF 50%, #7DD3FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-frost {
+  background: linear-gradient(135deg, #F5F7F8 0%, #BFC7CD 50%, #BDEEFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cinematic Glow & Radial Vignette */
+.radial-spotlight {
+  background: radial-gradient(circle at 50% 50%, rgba(189, 238, 255, 0.08) 0%, rgba(17, 24, 32, 0.4) 50%, rgba(5, 6, 8, 0.95) 100%);
+}
+
+.frost-vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 6, 8, 0.6) 80%, rgba(5, 6, 8, 0.95) 100%);
+}
+
+/* Subtle scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050608;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+

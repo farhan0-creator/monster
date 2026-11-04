@@ -1,0 +1,6 @@
+{
+  "name": "Monster Energy Ultra White — The Whiteout",
+  "description": "An international premium cinematic scroll-driven product experience for Monster Energy Ultra White, featuring a synchronized 159-frame 1080p animation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
