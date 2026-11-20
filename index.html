@@ -4,13 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monster Energy Ultra White — The Whiteout</title>
-    <meta name="description" content="An international premium cinematic scroll-driven product experience for Monster Energy Ultra White, featuring a synchronized 159-frame 1080p animation." />
-    <meta property="og:title" content="Monster Energy Ultra White — The Whiteout" />
-    <meta property="og:description" content="An international premium cinematic scroll-driven product experience for Monster Energy Ultra White, featuring a synchronized 159-frame 1080p animation." />
+    <meta name="description" content="Experience Monster Energy Ultra White in a 159-frame sub-zero scroll showcase. Explore zero-sugar citrus flavor, nutrition specs, and arctic athlete stories." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://monster.vercel.app/" />
+
+    <!-- OpenGraph Social Share Card -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Monster Energy Ultra White" />
+    <meta property="og:url" content="https://monster.vercel.app/" />
+    <meta property="og:title" content="Monster Energy Ultra White — The Whiteout" />
+    <meta property="og:description" content="Experience Monster Energy Ultra White in a 159-frame sub-zero scroll showcase. Explore zero-sugar citrus flavor, nutrition specs, and arctic athlete stories." />
+    <meta property="og:image" content="https://cfdrxpkuyyalxfjhmcmi.supabase.co/storage/v1/object/public/monster/Energy_drink_commercial_production_83289507_1080p-webp-frames/frame_003.webp" />
+    <meta property="og:image:alt" content="Monster Energy Ultra White frost-covered aluminum can in sub-zero lighting" />
+
+    <!-- Twitter / X Social Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Monster Energy Ultra White — The Whiteout" />
+    <meta name="twitter:description" content="Experience Monster Energy Ultra White in a 159-frame sub-zero scroll showcase. Explore zero-sugar citrus flavor, nutrition specs, and arctic athlete stories." />
+    <meta name="twitter:image" content="https://cfdrxpkuyyalxfjhmcmi.supabase.co/storage/v1/object/public/monster/Energy_drink_commercial_production_83289507_1080p-webp-frames/frame_003.webp" />
+
     <meta name="theme-color" content="#050608" />
-    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23050608'/%3E%3Cpath d='M18 14l4 36 4-24 6 24 6-24 4 24 4-36-7 10-7-10-7 10z' fill='%23BDEEFF'/%3E%3C/svg%3E" />
+
+    <!-- Schema.org Product Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Monster Energy Ultra White",
+        "brand": {
+          "@type": "Brand",
+          "name": "Monster Energy"
+        },
+        "category": "Energy Drinks",
+        "description": "Zero-sugar, light citrus sparkling energy drink with 10 calories and 160mg caffeine in an embossed matte white aluminum can.",
+        "image": "https://cfdrxpkuyyalxfjhmcmi.supabase.co/storage/v1/object/public/monster/Energy_drink_commercial_production_83289507_1080p-webp-frames/frame_003.webp",
+        "nutrition": {
+          "@type": "NutritionInformation",
+          "servingSize": "16 fl oz (473 mL)",
+          "calories": "10 calories",
+          "sugarContent": "0 g"
+        }
+      }
+    </script>
+
+    <!-- Dynamic canonical & og:url alignment for Vercel preview/production origins -->
+    <script>
+      (function () {
+        try {
+          var url = window.location.origin + window.location.pathname;
+          var canonical = document.querySelector('link[rel="canonical"]');
+          var ogUrl = document.querySelector('meta[property="og:url"]');
+          if (canonical) canonical.setAttribute('href', url);
+          if (ogUrl) ogUrl.setAttribute('content', url);
+        } catch (_) {}
+      })();
+    </script>
+
     <!-- Google Fonts: Barlow Condensed for athletic/condensed editorial display, Plus Jakarta Sans for clean typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,4 +71,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

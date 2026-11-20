@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { getFrameUrl } from '../services/frameLoader';
-import { Quote, Sparkles, Flame, ShieldCheck } from 'lucide-react';
+import { Quote, Sparkles } from 'lucide-react';
 
 const ANGLE_PRESETS = [
   { label: 'Initial Impact', frame: 20, desc: 'Sub-zero frost emergence' },
@@ -120,6 +120,10 @@ export const OriginStory: React.FC = () => {
                 <img
                   src={getFrameUrl(ANGLE_PRESETS[selectedAngle].frame)}
                   alt="Monster Ultra White 1080p Angle"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.style.opacity = '0.2';
+                  }}
                   className="max-h-[380px] w-auto object-contain transition-all duration-300 drop-shadow-[0_15px_35px_rgba(189,238,255,0.2)]"
                   loading="lazy"
                 />

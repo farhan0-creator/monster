@@ -75,3 +75,66 @@
   100% { transform: translateX(300%); }
 }
 
+@keyframes frost-twinkle {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(0.6) rotate(0deg);
+  }
+  45% {
+    opacity: 0.85;
+    transform: scale(1.15) rotate(45deg);
+  }
+  65% {
+    opacity: 0.35;
+    transform: scale(0.8) rotate(90deg);
+  }
+}
+
+@keyframes frost-drift {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translate3d(0, 6px, 0) scale(0.75);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translate3d(3px, -10px, 0) scale(1.1);
+  }
+}
+
+.frost-sparkle-star {
+  animation: frost-twinkle var(--sparkle-duration, 3.6s) ease-in-out var(--sparkle-delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+.frost-sparkle-speck {
+  animation: frost-drift var(--sparkle-duration, 4.8s) ease-in-out var(--sparkle-delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frost-sparkle-star,
+  .frost-sparkle-speck {
+    animation: none;
+    opacity: 0.35;
+  }
+}
+
+.card-ring-progress {
+  stroke-dashoffset: var(--ring-circumference, 138.23);
+  transition: stroke-dashoffset 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+
+.group:hover .card-ring-progress,
+.group:focus-within .card-ring-progress {
+  stroke-dashoffset: var(--ring-target-offset, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-ring-progress {
+    stroke-dashoffset: var(--ring-target-offset, 0);
+    transition: none;
+  }
+}
+
+
+

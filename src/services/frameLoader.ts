@@ -51,7 +51,9 @@ class FrameLoaderService {
         this.initialReady = true;
         this.notifyListeners();
       } catch {
-        // Log quietly
+        // Ensure UI never stays trapped on splash screen if network is unavailable
+        this.initialReady = true;
+        this.notifyListeners();
       }
     }
 
@@ -213,7 +215,10 @@ class FrameLoaderService {
         continue;
       }
 
-      this.loadSingleFrame(nextIndex, false);
+      // Catch errors internally so background preloads never cause unhandled rejections
+      void this.loadSingleFrame(nextIndex, false).catch(() => {
+        // Failed frame is already recorded in this.failed; continue processing queue
+      });
     }
   }
 
@@ -226,10 +231,11 @@ class FrameLoaderService {
     this.activeRequests++;
 
     const img = new Image();
-    img.crossOrigin = 'anonymous';
 
     const promise = new Promise<HTMLImageElement>((resolve, reject) => {
       img.onload = async () => {
+        img.onload = null;
+        img.onerror = null;
         try {
           if ('decode' in img) {
             await img.decode();
@@ -239,8 +245,10 @@ class FrameLoaderService {
         }
         resolve(img);
       };
-      img.onerror = (err) => {
-        reject(err);
+      img.onerror = () => {
+        img.onload = null;
+        img.onerror = null;
+        reject(new Error(`Failed to load frame ${index}`));
       };
     });
 
@@ -294,7 +302,9 @@ class FrameLoaderService {
     if (furthestFrame !== -1 && maxDistance > 20) {
       const img = this.cache.get(furthestFrame);
       if (img) {
-        img.src = ''; // Release GPU memory
+        img.onload = null;
+        img.onerror = null;
+        img.src = ''; // Release GPU memory safely without firing error handlers
       }
       this.cache.delete(furthestFrame);
       this.accessTimestamps.delete(furthestFrame);
@@ -317,6 +327,8 @@ class FrameLoaderService {
     this.listeners.clear();
     this.queue = [];
     this.cache.forEach((img) => {
+      img.onload = null;
+      img.onerror = null;
       img.src = '';
     });
     this.cache.clear();

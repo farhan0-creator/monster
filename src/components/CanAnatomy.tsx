@@ -68,7 +68,7 @@ export const CanAnatomy: React.FC = () => {
   return (
     <section id="anatomy" className="relative w-full py-28 px-6 md:px-16 bg-[#0c1219] border-t border-white/10 overflow-hidden">
       {/* Background frost glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-radial from-[#BDEEFF]/5 to-transparent pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-radial from-[#BDEEFF]/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
@@ -130,6 +130,10 @@ export const CanAnatomy: React.FC = () => {
               <img
                 src={getFrameUrl(75)}
                 alt="Monster Ultra White Anatomy Can Frame"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.style.opacity = '0.2';
+                }}
                 className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(189,238,255,0.25)] select-none"
               />
 

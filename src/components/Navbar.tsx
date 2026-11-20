@@ -25,6 +25,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 md:px-12 py-4 flex items-center justify-between bg-gradient-to-b from-[#050608]/90 via-[#050608]/60 to-transparent backdrop-blur-[2px] transition-all duration-300">
+      {/* Subtle 1px Sequence Progress Hairline */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-[#F5F7F8] via-[#BDEEFF] to-[#7DD3FC] transition-all duration-75 pointer-events-none"
+        style={{ width: `${Math.max(0, Math.min(100, progress * 100))}%` }}
+      />
       {/* Zone 1: Brand Wordmark */}
       <div className="flex items-center gap-3">
         <a

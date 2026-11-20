@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Zap, Activity, Brain, BatteryCharging, Heart, ShieldAlert } from 'lucide-react';
+import { Zap, Activity, Brain, BatteryCharging, Heart } from 'lucide-react';
 
 interface MatrixItem {
   id: string;

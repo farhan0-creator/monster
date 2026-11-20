@@ -54,20 +54,25 @@ class AmbientAudioService {
   }
 
   public toggle(): boolean {
-    if (!this.ctx) {
-      this.init();
-    }
+    try {
+      if (!this.ctx) {
+        this.init();
+      }
 
-    if (this.ctx?.state === 'suspended') {
-      this.ctx.resume();
-    }
+      if (this.ctx?.state === 'suspended') {
+        void this.ctx.resume().catch(() => {});
+      }
 
-    if (this.isPlaying) {
-      this.mute();
+      if (this.isPlaying) {
+        this.mute();
+        return false;
+      } else {
+        this.unmute();
+        return true;
+      }
+    } catch {
+      this.isPlaying = false;
       return false;
-    } else {
-      this.unmute();
-      return true;
     }
   }
 

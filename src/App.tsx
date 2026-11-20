@@ -19,6 +19,7 @@ import { NutritionSpecs } from './components/NutritionSpecs';
 import { ArcticDomain } from './components/ArcticDomain';
 import { Footer } from './components/Footer';
 import { StoreFinderModal } from './components/StoreFinderModal';
+import { FrostCursor } from './components/FrostCursor';
 import { useScrollProgress } from './hooks/useScrollProgress';
 import { frameLoader } from './services/frameLoader';
 import { ambientAudio } from './services/ambientAudio';
@@ -57,9 +58,15 @@ export default function App() {
     onFrameChange: handleFrameChange,
   });
 
-  // Start progressive loading in background once mounted
+  // Start progressive loading in background once mounted and unlock splash when loader finishes init
   useEffect(() => {
     frameLoader.preloadAllProgressively();
+    const unsubscribe = frameLoader.subscribe((state) => {
+      if (state.initialFrameReady) {
+        setInitialFrameReady(true);
+      }
+    });
+    return unsubscribe;
   }, []);
 
   const handleScrollClick = () => {
@@ -180,6 +187,9 @@ export default function App() {
 
       {/* Loading & Buffer Progress Notification */}
       <LoadingIndicator initialReady={initialFrameReady} />
+
+      {/* Interactive Frost Cursor & Scroll Ice Flake Emitter */}
+      <FrostCursor reducedMotion={reducedMotion} />
     </main>
   );
 }

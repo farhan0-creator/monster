@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { frameLoader, getFrameUrl, TOTAL_FRAMES, VERIFIED_FALLBACK_INDEX } from '../services/frameLoader';
+import { frameLoader, getFrameUrl, VERIFIED_FALLBACK_INDEX } from '../services/frameLoader';
 
 interface CanvasPlayerProps {
   currentFrameIndex: number;
@@ -26,6 +26,8 @@ export const CanvasPlayer: React.FC<CanvasPlayerProps> = ({
   const [hasError, setHasError] = useState(false);
   const [initialFrameDrawn, setInitialFrameDrawn] = useState(false);
 
+  const [imgFailed, setImgFailed] = useState(false);
+
   // Keep targetFrameRef in sync with prop
   useEffect(() => {
     targetFrameRef.current = currentFrameIndex;
@@ -44,6 +46,7 @@ export const CanvasPlayer: React.FC<CanvasPlayerProps> = ({
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const displayWidth = canvas.clientWidth;
     const displayHeight = canvas.clientHeight;
+    if (displayWidth <= 0 || displayHeight <= 0) return;
 
     const renderWidth = Math.round(displayWidth * dpr);
     const renderHeight = Math.round(displayHeight * dpr);
@@ -155,11 +158,24 @@ export const CanvasPlayer: React.FC<CanvasPlayerProps> = ({
         ref={containerRef}
         className="relative w-full h-full flex items-center justify-center bg-[#050608] overflow-hidden"
       >
-        <img
-          src={frameLoader.getClosestLoadedImage(currentFrameIndex).image?.src || getFrameUrl(VERIFIED_FALLBACK_INDEX)}
-          alt="Monster Energy Ultra White Can"
-          className="max-h-[85vh] max-w-[90vw] object-contain drop-shadow-[0_20px_50px_rgba(189,238,255,0.15)]"
-        />
+        {!imgFailed ? (
+          <img
+            src={frameLoader.getClosestLoadedImage(currentFrameIndex).image?.src || getFrameUrl(VERIFIED_FALLBACK_INDEX)}
+            alt="Monster Energy Ultra White Can"
+            referrerPolicy="no-referrer"
+            onError={() => setImgFailed(true)}
+            className="max-h-[85vh] max-w-[90vw] object-contain drop-shadow-[0_20px_50px_rgba(189,238,255,0.15)]"
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center px-6 py-12 rounded-2xl border border-white/10 bg-[#111820]/60">
+            <span className="font-display font-black text-4xl tracking-widest text-gradient-silver uppercase">
+              MONSTER ULTRA WHITE
+            </span>
+            <span className="mt-2 text-xs tracking-[0.25em] text-[#BDEEFF]/80 uppercase">
+              ZERO SUGAR · SUB-ZERO CITRUS
+            </span>
+          </div>
+        )}
         {reducedMotion && (
           <div className="absolute bottom-16 bg-[#111820]/90 backdrop-blur-md px-4 py-2 rounded border border-white/10 text-xs text-[#BFC7CD]">
             Reduced motion mode enabled · Static Ultra White preview
