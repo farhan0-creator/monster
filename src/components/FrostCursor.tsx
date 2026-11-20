@@ -1,6 +1,6 @@
 /**
- * Interactive Frost Cursor & Scroll-Triggered Ice Flake Emitter.
- * Tracks pointer movement and drops crystalline ice flakes from the cursor when scrolling.
+ * Interactive Frost Cursor & Ice Flake Emitter.
+ * Tracks pointer movement and drops crystalline ice flakes from the cursor on move, click, hover, and scroll.
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -26,7 +26,7 @@ interface IceFlake {
   color: string;
 }
 
-const MAX_FLAKES = 110;
+const MAX_FLAKES = 140;
 const FLAKE_COLORS = ['#F5F7F8', '#BDEEFF', '#E2F5FF'];
 
 export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false }) => {
@@ -60,6 +60,8 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
     const flakes: IceFlake[] = [];
     let pointerX = width * 0.5;
     let pointerY = height * 0.45;
+    let prevPointerX = pointerX;
+    let prevPointerY = pointerY;
     let smoothX = pointerX;
     let smoothY = pointerY;
     let pointerActive = false;
@@ -67,8 +69,16 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
     let lastScrollY = window.scrollY;
     let rafId: number | null = null;
     let lastTime = performance.now();
+    let lastMoveEmit = 0;
+    let lastIdleEmit = performance.now();
 
-    const spawnFlakes = (x: number, y: number, count: number, scrollImpulse = 0) => {
+    const spawnFlakes = (
+      x: number,
+      y: number,
+      count: number,
+      impulse = 0,
+      driftX = 0
+    ) => {
       for (let i = 0; i < count; i++) {
         if (flakes.length >= MAX_FLAKES) {
           flakes.shift();
@@ -76,20 +86,25 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
         const roll = Math.random();
         const kind: IceFlake['kind'] =
           roll < 0.45 ? 'crystal' : roll < 0.8 ? 'shard' : 'speck';
-        const spreadAngle = (Math.random() - 0.5) * 1.4;
-        const baseSpeed = 0.6 + Math.random() * 1.6 + Math.min(3.2, Math.abs(scrollImpulse) * 0.03);
+        const spreadAngle = (Math.random() - 0.5) * 1.6;
+        const baseSpeed = 0.55 + Math.random() * 1.45 + Math.min(3.0, Math.abs(impulse) * 0.03);
 
         flakes.push({
-          x: x + (Math.random() - 0.5) * 16,
+          x: x + (Math.random() - 0.5) * 14,
           y: y + (Math.random() - 0.5) * 10,
-          vx: Math.sin(spreadAngle) * (0.9 + Math.random() * 1.4),
-          vy: baseSpeed + Math.random() * 1.1,
-          size: kind === 'crystal' ? 4.5 + Math.random() * 4.5 : kind === 'shard' ? 3 + Math.random() * 3.5 : 1.5 + Math.random() * 2,
+          vx: Math.sin(spreadAngle) * (0.85 + Math.random() * 1.2) + driftX * 0.12,
+          vy: baseSpeed + Math.random() * 1.0,
+          size:
+            kind === 'crystal'
+              ? 4.2 + Math.random() * 4.5
+              : kind === 'shard'
+              ? 2.8 + Math.random() * 3.2
+              : 1.5 + Math.random() * 1.8,
           rotation: Math.random() * Math.PI * 2,
           vr: (Math.random() - 0.5) * 0.06,
           alpha: 0.75 + Math.random() * 0.25,
           life: 0,
-          maxLife: 55 + Math.random() * 45,
+          maxLife: 52 + Math.random() * 44,
           swayFreq: 0.04 + Math.random() * 0.05,
           swayPhase: Math.random() * Math.PI * 2,
           kind,
@@ -107,7 +122,6 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
         c.moveTo(0, 0);
         c.lineTo(cos * size, sin * size);
 
-        // Delicate crystalline chevron barb
         const barbLen = size * 0.38;
         const barbStart = size * 0.58;
         const bx = cos * barbStart;
@@ -148,6 +162,12 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
       smoothX += (pointerX - smoothX) * Math.min(1, 0.28 * dt);
       smoothY += (pointerY - smoothY) * Math.min(1, 0.28 * dt);
       scrollPulse = Math.max(0, scrollPulse - 0.045 * dt);
+
+      // Gentle resting frost drip while cursor is active inside viewport
+      if (isFinePointer && pointerActive && now - lastIdleEmit > 240) {
+        lastIdleEmit = now;
+        spawnFlakes(pointerX, pointerY + 6, 1, 0, 0);
+      }
 
       // Draw subtle frosted cursor halo on fine-pointer devices
       if (isFinePointer && pointerActive) {
@@ -223,9 +243,34 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
     };
 
     const handlePointerMove = (e: PointerEvent) => {
+      const dx = e.clientX - prevPointerX;
+      const dy = e.clientY - prevPointerY;
+      const dist = Math.hypot(dx, dy);
+
       pointerX = e.clientX;
       pointerY = e.clientY;
       pointerActive = true;
+
+      const now = performance.now();
+      if (dist > 5 && now - lastMoveEmit > 24) {
+        lastMoveEmit = now;
+        lastIdleEmit = now;
+        prevPointerX = e.clientX;
+        prevPointerY = e.clientY;
+        const count = Math.min(3, Math.max(1, Math.floor(dist / 18)));
+        spawnFlakes(pointerX, pointerY, count, dist * 0.4, dx * 0.25);
+      }
+
+      ensureLoopRunning();
+    };
+
+    const handlePointerDown = (e: PointerEvent) => {
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      pointerActive = true;
+      lastIdleEmit = performance.now();
+      spawnFlakes(pointerX, pointerY, 6, 35, 0);
+      scrollPulse = Math.min(1, scrollPulse + 0.55);
       ensureLoopRunning();
     };
 
@@ -243,6 +288,7 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
       const now = performance.now();
       if (now - lastWheelEmit > 28) {
         lastWheelEmit = now;
+        lastIdleEmit = now;
         const intensity = Math.min(6, Math.max(2, Math.round(Math.abs(e.deltaY) / 35) + 2));
         spawnFlakes(pointerX, pointerY, intensity, e.deltaY);
         scrollPulse = Math.min(1, scrollPulse + 0.45);
@@ -259,9 +305,9 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
       if (Math.abs(delta) < 1) return;
 
       const now = performance.now();
-      // Avoid double-spawning right next to wheel events, while catching keyboard/scrollbar/touch scrolls
       if (now - lastWheelEmit > 45 && now - lastScrollEmit > 35) {
         lastScrollEmit = now;
+        lastIdleEmit = now;
         const count = Math.min(5, Math.max(2, Math.round(Math.abs(delta) / 20) + 1));
         spawnFlakes(pointerX, pointerY, count, delta);
         scrollPulse = Math.min(1, scrollPulse + 0.4);
@@ -270,6 +316,7 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
     document.addEventListener('mouseleave', handlePointerLeave, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -280,6 +327,7 @@ export const FrostCursor: React.FC<FrostCursorProps> = ({ reducedMotion = false 
         cancelAnimationFrame(rafId);
       }
       window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerdown', handlePointerDown);
       document.removeEventListener('mouseleave', handlePointerLeave);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('scroll', handleScroll);
