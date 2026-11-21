@@ -44,6 +44,9 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop }) => {
             <a href="#specs" className="hover:text-[#BDEEFF] transition-colors">
               Nutrition Facts
             </a>
+            <a href="#guide" className="hover:text-[#BDEEFF] transition-colors">
+              Guide &amp; Q&amp;A
+            </a>
           </nav>
 
           {/* Return to top */}

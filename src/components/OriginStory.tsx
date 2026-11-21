@@ -35,13 +35,13 @@ export const OriginStory: React.FC = () => {
             </h2>
           </div>
           <p className="max-w-md text-sm md:text-base text-[#BFC7CD]/75 font-body leading-relaxed">
-            Born from the relentless demand of extreme athletes for a lighter, crisper drink with zero sugar—yet completely unwilling to sacrifice the full Monster energy surge.
+            Born from the relentless demand of extreme athletes for a lighter, crisper drink with zero sugar, yet completely unwilling to sacrifice the full Monster energy surge.
           </p>
         </div>
 
         {/* 2-Column Story Split */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Authentic Manifesto */}
+          {/* Left Column: Authentic Manifesto & Factual About Blurb */}
           <div className="lg:col-span-7 space-y-8">
             {/* The Famous Monster Ultra Back-of-Can Manifesto */}
             <div className="relative p-8 rounded-2xl bg-[#111820]/60 border border-white/10 backdrop-blur-md">
@@ -60,6 +60,34 @@ export const OriginStory: React.FC = () => {
                 <span>Unleash The Ultra Beast</span>
               </div>
             </div>
+
+            {/* Step 4: Factual About Blurb for Search & Generative Engines */}
+            <article className="p-6 rounded-2xl bg-[#0c1219] border border-white/10 space-y-4">
+              <h3 className="font-display font-bold text-lg tracking-wider text-[#F5F7F8] uppercase">
+                About Monster Energy Ultra White
+              </h3>
+              <p className="text-xs sm:text-sm text-[#BFC7CD]/85 font-body leading-relaxed">
+                Monster Energy Ultra White is a crisp, 10-calorie matte-white sparkling energy beverage built for high-altitude endurance and zero sugar crash. Developed by Monster Energy Company in Corona, California, it combines light citrus flavor with a 2000mg Monster Energy Blend (160mg caffeine, taurine, Panax ginseng extract, L-carnitine L-tartrate, and five B-vitamins) in a 100% recyclable textured aluminum can.
+              </p>
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-white/10 text-xs">
+                <div>
+                  <dt className="text-[#BFC7CD]/60 uppercase tracking-wider">Manufacturer & Origin</dt>
+                  <dd className="text-[#F5F7F8] font-medium mt-0.5">Monster Energy Company (Corona, CA)</dd>
+                </div>
+                <div>
+                  <dt className="text-[#BFC7CD]/60 uppercase tracking-wider">Standard Formats</dt>
+                  <dd className="text-[#F5F7F8] font-medium mt-0.5 font-mono tabular-nums">16 fl oz (473 mL) US / 500 mL Intl</dd>
+                </div>
+                <div>
+                  <dt className="text-[#BFC7CD]/60 uppercase tracking-wider">Dietary Specifications</dt>
+                  <dd className="text-[#F5F7F8] font-medium mt-0.5">Zero Sugar, Keto Friendly, Gluten-Free, Vegan, Kosher (OU)</dd>
+                </div>
+                <div>
+                  <dt className="text-[#BFC7CD]/60 uppercase tracking-wider">Typical Retail Pricing</dt>
+                  <dd className="text-[#F5F7F8] font-medium mt-0.5 font-mono tabular-nums">$2.79 single can / $39.99 24-pack</dd>
+                </div>
+              </dl>
+            </article>
 
             {/* Core Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">

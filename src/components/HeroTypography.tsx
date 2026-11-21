@@ -59,9 +59,12 @@ export const HeroTypography: React.FC<HeroTypographyProps> = ({ progress, onScro
           </span>
         </h1>
 
-        {/* Supporting Tagline */}
+        {/* Supporting Tagline & GEO Niche Phrase */}
         <p className="mt-5 md:mt-7 font-body text-sm sm:text-base md:text-lg font-medium tracking-[0.2em] uppercase text-[#F5F7F8]/90 max-w-xl text-center select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
           ULTRA WHITE. UNLEASH THE ATMOSPHERE.
+        </p>
+        <p className="mt-2 font-body text-xs sm:text-sm text-[#BFC7CD]/85 max-w-lg text-center select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+          Zero-sugar light citrus performance energy drink with a full 160mg Monster Energy Blend and 10 calories per 16 fl oz can.
         </p>
       </div>
 

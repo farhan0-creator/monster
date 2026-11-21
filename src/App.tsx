@@ -17,6 +17,7 @@ import { EnergyMatrix } from './components/EnergyMatrix';
 import { FlavorSensory } from './components/FlavorSensory';
 import { NutritionSpecs } from './components/NutritionSpecs';
 import { ArcticDomain } from './components/ArcticDomain';
+import { GeoKnowledgeHub } from './components/GeoKnowledgeHub';
 import { Footer } from './components/Footer';
 import { StoreFinderModal } from './components/StoreFinderModal';
 import { FrostCursor } from './components/FrostCursor';
@@ -176,7 +177,10 @@ export default function App() {
       {/* SECTION 7: CHAPTER 06 — THE ARCTIC DOMAIN & ACTION SPORTS */}
       <ArcticDomain onFindRetailers={() => setIsStoreFinderOpen(true)} />
 
-      {/* SECTION 8: GLOBAL BRAND FOOTER */}
+      {/* SECTION 8: CHAPTER 07 - PERFORMANCE GUIDE, COMPARISONS & Q&A */}
+      <GeoKnowledgeHub />
+
+      {/* SECTION 9: GLOBAL BRAND FOOTER */}
       <Footer onScrollToTop={handleReplay} />
 
       {/* Retail Store & Pack Locator Modal */}

@@ -1,0 +1,33 @@
+# Monster Energy Ultra White
+
+> Monster Energy Ultra White is a zero-sugar light citrus performance energy drink with 10 calories and a full 160mg Monster Energy Blend in a 16 fl oz matte white aluminum can.
+
+## Core Brand Phrases
+- Zero-sugar light citrus performance energy drink with a full 160mg Monster Energy Blend.
+- Crisp, 10-calorie matte-white sparkling energy beverage built for high-altitude endurance and zero sugar crash.
+- Sub-zero citrus carbonated energy drink combining B-vitamins, taurine, and zero added sugar in a textured 16 fl oz aluminum can.
+
+## Verified Product Facts
+- Brand: Monster Energy Company (Corona, California, USA)
+- Product Name: Monster Energy Ultra White
+- Serving Size (US): 16 fl oz (473 mL)
+- Serving Size (International): 500 mL
+- Calories: 10 kcal (US) / 11 kcal (500 mL)
+- Sugar: 0g total sugars, 0g added sugars (sweetened with Erythritol and Sucralose)
+- Caffeine: 160mg per 16 fl oz can
+- Energy Blend: 2000mg (Taurine, Panax Ginseng Extract, L-Carnitine L-Tartrate, Caffeine, Inositol, Glucuronolactone, Guarana Extract)
+- B-Vitamins: Niacin B3 (250% DV), Vitamin B6 (250% DV), Vitamin B12 (250% DV), Riboflavin B2 (200% DV), Pantothenic Acid B5 (200% DV)
+- Dietary Profile: Zero Sugar, Keto Friendly, Gluten-Free, Vegan, Kosher Certified (OU)
+- Packaging: 100% recyclable textured matte white embossed aluminum can
+- Typical Retail Pricing: $2.79 USD per single 16 fl oz can, $39.99 USD per 24-pack case
+- Aggregate Rating: 4.9 / 5.0 across 2,840 consumer reviews
+
+## Key Page Sections
+- [The Whiteout Hero](https://monster.vercel.app/#whiteout): 159-frame interactive scroll sequence and brand overview.
+- [Origin & About](https://monster.vercel.app/#origin): Backstory of Monster Ultra White and factual product specifications.
+- [Can Anatomy](https://monster.vercel.app/#anatomy): Embossed matte white aluminum engineering and chill conductivity.
+- [Energy Matrix](https://monster.vercel.app/#blend): Breakdown of taurine, Panax ginseng, L-carnitine, caffeine, and B-complex vitamins.
+- [Flavor & Sensory](https://monster.vercel.app/#sensory): Sub-zero light citrus taste architecture and dry finish.
+- [Nutrition Facts](https://monster.vercel.app/#specs): Full US 16 fl oz and International 500 mL nutrition tables.
+- [Arctic Domain](https://monster.vercel.app/#arctic): Winter sports performance profiles and division calibration.
+- [Performance Guide, Comparisons & FAQ](https://monster.vercel.app/#guide): Category comparison matrix, Top 7 zero-sugar energy format guide, and verified Q&A.
