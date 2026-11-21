@@ -28,27 +28,35 @@ export function useScrollProgress({
   const [endCardVisible, setEndCardVisible] = useState(false);
   const [currentProgress, setCurrentProgress] = useState(0);
 
+  const getViewportHeight = useCallback((track: HTMLElement) => {
+    const stickyChild = track.firstElementChild as HTMLElement | null;
+    return stickyChild && stickyChild.offsetHeight > 0
+      ? stickyChild.offsetHeight
+      : window.innerHeight;
+  }, []);
+
   const calculateProgress = useCallback(() => {
     if (!trackRef.current) return 0;
 
     const track = trackRef.current;
     const rect = track.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    const viewportHeight = getViewportHeight(track);
 
     // Track scroll range: from top of track reaching top of viewport
-    // to bottom of track reaching bottom of viewport.
-    const scrollDistance = track.offsetHeight - windowHeight;
+    // to bottom of track reaching bottom of pinned sticky viewport.
+    const scrollDistance = track.offsetHeight - viewportHeight;
     if (scrollDistance <= 0) return 0;
 
     const currentScroll = -rect.top;
     const rawProgress = currentScroll / scrollDistance;
     return Math.max(0, Math.min(1, rawProgress));
-  }, [trackRef]);
+  }, [trackRef, getViewportHeight]);
 
   useEffect(() => {
     if (reducedMotion) return;
 
     let ticking = false;
+    let rafId: number | null = null;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -63,7 +71,7 @@ export function useScrollProgress({
       lastScrollY.current = currentScrollY;
 
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        rafId = window.requestAnimationFrame(() => {
           const progress = calculateProgress();
           progressRef.current = progress;
 
@@ -97,6 +105,7 @@ export function useScrollProgress({
           });
 
           ticking = false;
+          rafId = null;
         });
         ticking = true;
       }
@@ -111,6 +120,9 @@ export function useScrollProgress({
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
     };
   }, [calculateProgress, onFrameChange, reducedMotion]);
 
@@ -119,16 +131,17 @@ export function useScrollProgress({
     (targetProgress: number) => {
       if (!trackRef.current) return;
       const track = trackRef.current;
-      const windowHeight = window.innerHeight;
-      const scrollDistance = track.offsetHeight - windowHeight;
-      const targetY = track.offsetTop + targetProgress * scrollDistance;
+      const viewportHeight = getViewportHeight(track);
+      const scrollDistance = track.offsetHeight - viewportHeight;
+      const trackTop = track.getBoundingClientRect().top + window.scrollY;
+      const targetY = trackTop + targetProgress * scrollDistance;
 
       window.scrollTo({
         top: targetY,
         behavior: 'smooth',
       });
     },
-    [trackRef]
+    [trackRef, getViewportHeight]
   );
 
   return {

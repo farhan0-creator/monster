@@ -104,6 +104,7 @@ const ATHLETE_STORIES: AthleteStory[] = [
 
 export const ArcticDomain: React.FC<{ onFindRetailers: () => void }> = ({ onFindRetailers }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -139,8 +140,8 @@ export const ArcticDomain: React.FC<{ onFindRetailers: () => void }> = ({ onFind
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.12,
+        rootMargin: '0px 0px -30px 0px',
       }
     );
 
@@ -151,39 +152,62 @@ export const ArcticDomain: React.FC<{ onFindRetailers: () => void }> = ({ onFind
     return () => observer.disconnect();
   }, []);
 
-  // 2. Scroll-based vertical parallax effect
+  // 2. Scroll-based vertical parallax effect (responsive for mobile vertical stack vs desktop 3-col row)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mediaQuery.matches) return;
 
     let ticking = false;
+    let rafId: number | null = null;
 
     const updateParallax = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowH = window.innerHeight;
+      ticking = false;
+      rafId = null;
 
-      // Only calculate when section is near or inside viewport
-      if (rect.bottom >= -100 && rect.top <= windowH + 100) {
-        // Normalized scroll progress across the section [-1 to 1 around center]
-        const progress = (windowH - rect.top) / (windowH + rect.height);
+      const gridEl = gridRef.current;
+      if (!gridEl) return;
+
+      const windowH = window.innerHeight;
+      const isMobile = window.innerWidth < 768;
+      const gridRect = gridEl.getBoundingClientRect();
+
+      // Skip work when card grid is far outside viewport
+      if (gridRect.bottom < -160 || gridRect.top > windowH + 160) return;
+
+      if (isMobile) {
+        // Mobile 1-column stack: calculate per-card viewport-centered parallax with safe amplitude so cards never overlap
+        cardRefs.current.forEach((cardEl, idx) => {
+          const containerEl = containerRefs.current[idx];
+          if (!cardEl || !containerEl) return;
+
+          const rect = containerEl.getBoundingClientRect();
+          if (rect.bottom < -120 || rect.top > windowH + 120) return;
+
+          const progress = (windowH - rect.top) / (windowH + rect.height);
+          const factor = Math.max(-1, Math.min(1, (progress - 0.5) * 2));
+          const story = ATHLETE_STORIES[idx];
+          const rate = story ? story.parallaxRate : -25;
+          const translateY = factor * rate * 0.32;
+          cardEl.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
+        });
+      } else {
+        // Desktop 3-column row: synchronize across the card row center
+        const progress = (windowH - gridRect.top) / (windowH + gridRect.height);
         const factor = Math.max(-1, Math.min(1, (progress - 0.5) * 2));
 
         cardRefs.current.forEach((cardEl, idx) => {
           if (!cardEl) return;
           const story = ATHLETE_STORIES[idx];
           const rate = story ? story.parallaxRate : -25;
-          const translateY = Math.round(factor * rate);
-          cardEl.style.transform = `translate3d(0, ${translateY}px, 0)`;
+          const translateY = factor * rate;
+          cardEl.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
         });
       }
-
-      ticking = false;
     };
 
     const handleScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(updateParallax);
+        rafId = requestAnimationFrame(updateParallax);
         ticking = true;
       }
     };
@@ -196,13 +220,16 @@ export const ArcticDomain: React.FC<{ onFindRetailers: () => void }> = ({ onFind
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-28 px-6 md:px-16 bg-[#0c1219] border-t border-white/10 overflow-hidden"
+      className="relative w-full py-28 px-6 md:px-16 bg-[#0c1219] border-t border-white/10 overflow-x-clip"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 right-1/4 w-[600px] h-[600px] bg-[#BDEEFF]/5 rounded-full blur-3xl pointer-events-none" />
@@ -225,7 +252,10 @@ export const ArcticDomain: React.FC<{ onFindRetailers: () => void }> = ({ onFind
         </div>
 
         {/* 3 Athlete Story Cards with Staggered Intersection Observer Fade-In & Scroll Parallax */}
-        <div className="grid grid-cols-1 md:grid-cols-3 items-start gap-8 mb-24 pt-4 pb-6">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-3 items-start gap-10 md:gap-8 mb-24 pt-6 pb-8"
+        >
           {ATHLETE_STORIES.map((story, i) => (
             <div
               key={i}

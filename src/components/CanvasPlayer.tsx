@@ -194,7 +194,7 @@ export const CanvasPlayer: React.FC<CanvasPlayerProps> = ({
         ref={canvasRef}
         className="w-full h-full block"
         style={{
-          touchAction: 'none',
+          touchAction: 'pan-y pinch-zoom',
         }}
       />
     </div>
