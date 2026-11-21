@@ -26,12 +26,11 @@ export const HeroTypography: React.FC<HeroTypographyProps> = ({ progress, onScro
     translateY = -clamped * 32;
   }
 
-  if (opacity <= 0.01) {
-    return null;
-  }
+  const isHidden = opacity <= 0.01;
 
   return (
     <div
+      aria-hidden={isHidden}
       className="absolute inset-0 z-30 pointer-events-none flex flex-col justify-between p-6 md:p-14 transition-opacity duration-75"
       style={{
         opacity,
@@ -51,6 +50,7 @@ export const HeroTypography: React.FC<HeroTypographyProps> = ({ progress, onScro
 
         {/* Huge Condensed Title */}
         <h1 className="font-display font-black text-6xl sm:text-7xl md:text-9xl lg:text-[10.5rem] leading-[0.88] tracking-tight uppercase select-none">
+          <span className="sr-only">Monster Energy Ultra White: </span>
           <span className="block text-gradient-silver drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             THE
           </span>
@@ -73,7 +73,10 @@ export const HeroTypography: React.FC<HeroTypographyProps> = ({ progress, onScro
         <button
           onClick={onScrollClick}
           type="button"
-          className="pointer-events-auto flex flex-col items-center gap-2 text-xs font-semibold tracking-[0.25em] text-[#BFC7CD]/75 hover:text-[#BDEEFF] transition-colors cursor-pointer group"
+          tabIndex={isHidden ? -1 : 0}
+          className={`${
+            isHidden ? 'pointer-events-none' : 'pointer-events-auto'
+          } flex flex-col items-center gap-2 text-xs font-semibold tracking-[0.25em] text-[#BFC7CD]/75 hover:text-[#BDEEFF] transition-colors cursor-pointer group`}
           aria-label="Scroll to experience"
         >
           <span>SCROLL TO EXPERIENCE</span>
