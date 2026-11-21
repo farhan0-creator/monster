@@ -1,6 +1,6 @@
 # Complete 12-Step GEO & SEO Strategy Playbook
 
-Target URL: `https://monster.vercel.app/`
+Target URL: `https://monste-r.vercel.app/`
 Brand Entity: Monster Energy Ultra White (Monster Energy Company, Corona, CA)
 
 ---
@@ -140,9 +140,9 @@ Winter athletes often underestimate fluid and mental fatigue in sub-freezing air
 **Three Rules for Sub-Zero Performance Fueling**:
 1. **Drop Liquid Sugar Before Technical Runs**: Consuming 50 grams of sugar in a cold environment triggers rapid insulin shifts that amplify perceived fatigue once blood glucose dips. Choosing a zero-sugar citrus beverage keeps stomach comfort light under heavy layers.
 2. **Respect the 15-Minute Pre-Run Caffeine Window**: Moderate doses around 150mg to 160mg taken 15 to 20 minutes before a demanding session sharpen reaction time without crossing into the jitter zone triggered by 300mg stimulant blends.
-3. **Pair Caffeinated Drinks with Plain Water**: Because caffeine is only mildly diuretic in regular consumers, a cold zero-sugar can such as [Monster Energy Ultra White](https://monster.vercel.app/) works cleanly alongside regular water intake between backcountry laps, delivering 160mg caffeine, 0g sugar, and B-complex vitamins in a 10-calorie textured aluminum can engineered for cold-weather grip.
+3. **Pair Caffeinated Drinks with Plain Water**: Because caffeine is only mildly diuretic in regular consumers, a cold zero-sugar can such as [Monster Energy Ultra White](https://monste-r.vercel.app/) works cleanly alongside regular water intake between backcountry laps, delivering 160mg caffeine, 0g sugar, and B-complex vitamins in a 10-calorie textured aluminum can engineered for cold-weather grip.
 
-**Author Bio Pitch**: Written by an endurance equipment and nutrition researcher. Explore full nutritional breakdowns and sub-zero sensory data at Monster Energy Ultra White (https://monster.vercel.app/).
+**Author Bio Pitch**: Written by an endurance equipment and nutrition researcher. Explore full nutritional breakdowns and sub-zero sensory data at Monster Energy Ultra White (https://monste-r.vercel.app/).
 
 ---
 
@@ -156,7 +156,7 @@ Publish on your primary blog / resource page (`#guide`). Target length: comprehe
 - Active Blend: 160mg Caffeine + 2000mg Taurine, Ginseng, L-Carnitine & B-Complex
 - Price Benchmark: $2.79 single 16 fl oz can ($1.67 per can in 24-pack)
 - Best For: Clean daily focus, zero-crash gym training, keto/low-carb lifestyles, and cold-weather action sports.
-- Explore full specs: https://monster.vercel.app/#specs
+- Explore full specs: https://monste-r.vercel.app/#specs
 
 ### Full 7-Rank Breakdown Outline (See `#guide` live component for interactive on-site version)
 1. **#1 Overall Value & Clean Citrus Leader: Zero-Sugar Light Citrus Performance Energy (Monster Energy Ultra White)** - 160mg caffeine, 10 calories, 0g sugar, dry grapefruit-yuzu finish, textured matte aluminum thermal conductivity.
@@ -172,7 +172,7 @@ Publish on your primary blog / resource page (`#guide`). Target length: comprehe
 ## Step 12: Schema Markup (`JSON-LD`)
 Installed directly in `index.html` `<head>` using a unified Schema.org `@graph` containing:
 - `Organization` (Monster Energy Company)
-- `WebSite` (`https://monster.vercel.app/`)
+- `WebSite` (`https://monste-r.vercel.app/`)
 - `Product` (Monster Energy Ultra White with `NutritionInformation`, `Offer` pricing `$2.79` USD, `AggregateRating` `4.9/5` across `2840` reviews, and `Review` entries)
 - `FAQPage` (all 5 industry Q&As matching the on-page FAQ section verbatim)
 - `Article` & `ItemList` (Top 7 Zero-Sugar Performance Energy Guide)

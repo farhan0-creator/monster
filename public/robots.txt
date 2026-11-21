@@ -35,4 +35,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://monster.vercel.app/sitemap.xml
+Sitemap: https://monste-r.vercel.app/sitemap.xml

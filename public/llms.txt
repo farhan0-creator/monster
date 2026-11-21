@@ -23,11 +23,11 @@
 - Aggregate Rating: 4.9 / 5.0 across 2,840 consumer reviews
 
 ## Key Page Sections
-- [The Whiteout Hero](https://monster.vercel.app/#whiteout): 159-frame interactive scroll sequence and brand overview.
-- [Origin & About](https://monster.vercel.app/#origin): Backstory of Monster Ultra White and factual product specifications.
-- [Can Anatomy](https://monster.vercel.app/#anatomy): Embossed matte white aluminum engineering and chill conductivity.
-- [Energy Matrix](https://monster.vercel.app/#blend): Breakdown of taurine, Panax ginseng, L-carnitine, caffeine, and B-complex vitamins.
-- [Flavor & Sensory](https://monster.vercel.app/#sensory): Sub-zero light citrus taste architecture and dry finish.
-- [Nutrition Facts](https://monster.vercel.app/#specs): Full US 16 fl oz and International 500 mL nutrition tables.
-- [Arctic Domain](https://monster.vercel.app/#arctic): Winter sports performance profiles and division calibration.
-- [Performance Guide, Comparisons & FAQ](https://monster.vercel.app/#guide): Category comparison matrix, Top 7 zero-sugar energy format guide, and verified Q&A.
+- [The Whiteout Hero](https://monste-r.vercel.app/#whiteout): 159-frame interactive scroll sequence and brand overview.
+- [Origin & About](https://monste-r.vercel.app/#origin): Backstory of Monster Ultra White and factual product specifications.
+- [Can Anatomy](https://monste-r.vercel.app/#anatomy): Embossed matte white aluminum engineering and chill conductivity.
+- [Energy Matrix](https://monste-r.vercel.app/#blend): Breakdown of taurine, Panax ginseng, L-carnitine, caffeine, and B-complex vitamins.
+- [Flavor & Sensory](https://monste-r.vercel.app/#sensory): Sub-zero light citrus taste architecture and dry finish.
+- [Nutrition Facts](https://monste-r.vercel.app/#specs): Full US 16 fl oz and International 500 mL nutrition tables.
+- [Arctic Domain](https://monste-r.vercel.app/#arctic): Winter sports performance profiles and division calibration.
+- [Performance Guide, Comparisons & FAQ](https://monste-r.vercel.app/#guide): Category comparison matrix, Top 7 zero-sugar energy format guide, and verified Q&A.
